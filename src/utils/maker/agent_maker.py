@@ -109,4 +109,10 @@ class AgentMaker(Maker):
         """Code Kernel agent using attention to merge obs."""
         from modules.agents.kernel_agent import KernelAgent
         return KernelAgent(*args, **kwargs)
-    
+
+    @staticmethod
+    def make_masia(*args, **kwargs) -> Agent:
+        """MASIA agent with self-supervised message aggregation."""
+        from modules.agents.masia_agent import MASIAAgent
+        return MASIAAgent(*args, **kwargs)
+ 

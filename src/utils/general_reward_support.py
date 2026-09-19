@@ -9,7 +9,7 @@ def test_alg_config_supports_reward(config):
         if config["learner"] == "coma_learner" or config["learner"] == "qtran_learner":
             # COMA and QTRAN only support common reward
             return False
-        elif config["learner"] == "q_learner" and (
+        elif config["learner"] in {"q_learner", "masia_learner"} and (
             config["mixer"] == "vdn" or config["mixer"] == "qmix"
         ):
             # VDN and QMIX only support common reward

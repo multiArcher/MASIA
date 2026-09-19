@@ -1,0 +1,127 @@
+# ------------------------------------------------------------------------------
+# ---Environment specific parameters---
+# ------------------------------------------------------------------------------
+name: "masia"
+
+runner: "parallel"
+batch_size_run: 8
+
+entity_scheme: False
+
+test_nepisode: 64
+test_interval: 50000
+log_interval: 50000
+runner_log_interval: 50000
+learner_log_interval: 50000
+t_max: 10050000
+
+save_model: True # Save the models to disk
+save_model_interval: 1000000 # Save models after this many time steps
+
+use_tensorboard: True # Log results to tensorboard
+buffer_cpu_only: True # If true we won't keep all the replay buffer in vram
+
+# ------------------------------------------------------------------------------
+# --- Algorithm specific parameters ---
+# ------------------------------------------------------------------------------
+mac: "masia_mac" # MASIA controller
+agent: "masia" # MASIA rnn agent
+learner: "masia_learner" # Self-supervised aggregation + Q-learning
+mixer: "qmix" # Mixing network.
+
+# ------------------------------------------------------------------------------
+# --- Controller specific parameters ---
+# ------------------------------------------------------------------------------
+agent_output_type: "q"
+
+action_selector: "epsilon_greedy" # use epsilon greedy action selector
+epsilon_start: 1.0
+epsilon_finish: 0.05
+epsilon_anneal_time: 50000
+evaluation_epsilon: 0.0
+
+obs_delay_enabled: False       # Whether to apply observation delay at the agent input boundary
+obs_delay_apply_train: False   # Apply observation delay during training forwards
+obs_delay_apply_test: False    # Apply observation delay during evaluation forwards
+obs_gaussian_delay_mean: 0.0   # Mean of the Gaussian delay for observations
+obs_gaussian_delay_std: 0.0    # Standard deviation of the Gaussian delay for observations
+obs_delay_discretization: round # Convert sampled observation delay to int: round, ceil, or floor
+
+# ------------------------------------------------------------------------------
+# --- Agent specific parameters ---
+# ------------------------------------------------------------------------------
+use_rnn: True  # Use a recurrent network for the agent
+hidden_dim: 64 # Size of hidden state for default rnn agent
+agent_hidden_dim: 64 # Aligned alias used by other algorithm yamls
+obs_agent_id: True # Include the agent's one_hot id in the observation
+obs_last_action: False # Original MASIA policy head only concatenates agent id
+obs_individual_obs: False
+
+# Message encoder / information aggregation
+encoder_use_rnn: True
+encoder_hidden_dim: 32
+ae_enc_hidden_dims: []
+ae_dec_hidden_dims: []
+attn_embed_dim: 16
+state_encoder: ob_attn_ae
+state_repre_dim: 8
+concat_obs: True
+ob_embed_dim: 32
+
+# ------------------------------------------------------------------------------
+# --- Learner specific parameters ---
+# ------------------------------------------------------------------------------
+standardise_returns: False
+standardise_rewards: True
+
+gamma: 0.99
+
+optimiser: Adam  # Not effective in some epymarl learner. They are fixed.
+lr: 0.0005 # Learning rate for agents
+optim_alpha: 0.99 # RMSProp alpha
+optim_eps: 0.00001 # RMSProp epsilon
+
+grad_norm_clip: 10 # Reduce magnitude of gradients above this L2 norm
+
+batch_size: 32 # Number of episodes to train on
+buffer_size: 5000 # Size of the replay buffer
+
+double_q: True
+target_update_interval_or_tau: 200  # update the target network every {} episodes
+target_update_interval: 200  # update the target network every {} episodes
+
+# ------------------------------------------------------------------------------
+# --- Mixer specific parameters ---
+# ------------------------------------------------------------------------------
+mixing_embed_dim: 32
+hypernet_layers: 2
+hypernet_embed: 64
+
+# ------------------------------------------------------------------------------
+# --- MASIA specific parameters ---
+# ------------------------------------------------------------------------------
+# Latent dynamics / self-supervised future prediction
+use_latent_model: True
+use_rew_pred: True
+use_momentum_encoder: True
+use_residual: True
+momentum_tau: 1
+pred_len: 2
+latent_model: mlp
+model_hidden_dim: 64
+action_embed_dim: 8
+spr_dim: 32
+
+rl_signal: True
+
+# Loss component weights
+spr_coef: 1
+rew_pred_coef: 1
+repr_coef: 1
+
+# Encoder testing/visualization
+test_encoder: False
+
+# Robust communication noise (disabled by default, as in the original yaml)
+noise_env: False
+noise_type: 0

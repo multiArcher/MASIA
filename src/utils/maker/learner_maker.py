@@ -96,3 +96,9 @@ class LearnerMaker(Maker):
         """RDC Echo QMIX learner."""
         from learners.rdc_q_learner import RDCQLearner
         return RDCQLearner(*args, **kwargs)
+
+    @staticmethod
+    def make_masia_learner(*args, **kwargs) -> 'Learner':
+        """MASIA self-supervised aggregation learner."""
+        from learners.masia_learner import MASIALearner
+        return MASIALearner(*args, **kwargs)

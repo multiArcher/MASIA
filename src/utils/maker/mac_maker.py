@@ -86,3 +86,9 @@ class MACMaker(Maker):
         """RDC Echo delay-compensating MAC."""
         from controllers.rdc_controller import RDCMAC
         return RDCMAC(*args, **kwargs)
+
+    @staticmethod
+    def make_masia_mac(*args, **kwargs) -> MAC:
+        """MASIA communication MAC."""
+        from controllers.masia_controller import MASIAMAC
+        return MASIAMAC(*args, **kwargs)
