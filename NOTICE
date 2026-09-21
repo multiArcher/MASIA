@@ -33,3 +33,14 @@ The following files have been added compared to the original PyMARL codebase:
 - src/modules/critics/mlp.py
 - src/pretrained/*
 
+CACOM integration:
+- src/modules/agents/cacom_agent.py
+- src/controllers/cacom_controller.py
+- src/learners/cacom_learner.py
+- src/config/algs/cacom.yaml
+Adapted from Xinran Li and Jun Zhang's LXXXXR/CACOM (Apache-2.0),
+https://github.com/LXXXXR/CACOM, commit 97493a0b2c402e88a06d4e0d21327c41bbd21709.
+The upstream network includes LSQ code attributed to zhutmost/lsq-net.
+Repository interface, masking, target synchronization and checkpoint changes
+are described in docs/cacom.md.
+

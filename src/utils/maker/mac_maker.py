@@ -92,3 +92,6 @@ class MACMaker(Maker):
         """MASIA communication MAC."""
         from controllers.masia_controller import MASIAMAC
         return MASIAMAC(*args, **kwargs)
+    def make_cacom_mac(*args, **kwargs):
+        from controllers.cacom_controller import CACOMMAC
+        return CACOMMAC(*args, **kwargs)

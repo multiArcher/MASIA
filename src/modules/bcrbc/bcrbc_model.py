@@ -24,6 +24,9 @@ class BCRBCModel(nn.Module):
         self.num_z_tokens = num_z_tokens
         self.observation_dim = observation_dim
         self.context_window = args.bcrbc_context_window
+        self.encoder_context_window = getattr(args, "bcrbc_encoder_context_window", None)
+        if self.encoder_context_window is None:
+            self.encoder_context_window = self.context_window
         self.flow_steps = args.bcrbc_flow_steps
         self.generation_horizon = args.bcrbc_generation_horizon
         self.rec_loss_enabled = args.rec_loss_weight > 0
@@ -38,7 +41,7 @@ class BCRBCModel(nn.Module):
             num_z_tokens,
             transformer_depth,
             attention_heads,
-            context_window=self.context_window,
+            context_window=self.encoder_context_window,
             time_block_every=time_block_every,
         )
         self.observation_decoder = ObservationDecoder(

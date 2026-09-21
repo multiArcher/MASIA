@@ -102,3 +102,6 @@ class LearnerMaker(Maker):
         """MASIA self-supervised aggregation learner."""
         from learners.masia_learner import MASIALearner
         return MASIALearner(*args, **kwargs)
+    def make_cacom_learner(*args, **kwargs):
+        from learners.cacom_learner import CACOMLearner
+        return CACOMLearner(*args, **kwargs)

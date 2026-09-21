@@ -116,3 +116,6 @@ class AgentMaker(Maker):
         from modules.agents.masia_agent import MASIAAgent
         return MASIAAgent(*args, **kwargs)
  
+    def make_cacom(*args, **kwargs):
+        from modules.agents.cacom_agent import CACOMAgent
+        return CACOMAgent(*args, **kwargs)

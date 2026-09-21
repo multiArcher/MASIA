@@ -60,6 +60,7 @@ bcrbc_num_z_tokens: 2
 bcrbc_depth: 4
 # Every Nth layer is temporal; depth=3, every=3 gives space-space-time.
 bcrbc_time_block_every: 4
+bcrbc_encoder_context_window: null  # null inherits bcrbc_context_window; 1 encodes each step independently.
 bcrbc_heads: 2
 bcrbc_dropout: 0.0
 # Sample p uniformly, then mask each observation block independently with p.
